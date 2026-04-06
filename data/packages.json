@@ -1,0 +1,37 @@
+[
+  {
+    "id": "pkg-01",
+    "name": "Santorini Sunset Retreat",
+    "description": "Experience the famous white architecture and breathtaking sunsets of Santorini. Includes luxury accommodation, daily breakfast, and a private sunset yacht tour.",
+    "price": 1290,
+    "image": "./images/santorini.jpg"
+  },
+  {
+    "id": "pkg-02",
+    "name": "Bali Tropical Escape",
+    "description": "Discover the exotic beauty of Bali. Includes stay at a jungle resort in Ubud, cultural templar visits, and exclusive access to a beach club.",
+    "price": 950,
+    "image": "./images/bali.jpg"
+  },
+  {
+    "id": "pkg-03",
+    "name": "Swiss Alps Adventure",
+    "description": "A thrilling escape to the Swiss Alps. Enjoy premium skiing resorts, hot springs, and a scenic ride on the Glacier Express.",
+    "price": 1850,
+    "image": "./images/swiss.jpg"
+  },
+  {
+    "id": "pkg-04",
+    "name": "Tokyo Neon Nights",
+    "description": "Immerse yourself in the vibrant culture of Tokyo. Features guided culinary tours, a visit to Mt. Fuji, and a stay in a luxury high-rise.",
+    "price": 1450,
+    "image": "./images/tokyo.jpg"
+  },
+  {
+    "id": "pkg-05",
+    "name": "Maldives Overwater Bliss",
+    "description": "The ultimate relaxation in the Maldives. Includes an overwater bungalow, unlimited scuba diving sessions, and an underwater restaurant dinner.",
+    "price": 2500,
+    "image": "./images/maldives.jpg"
+  }
+]
