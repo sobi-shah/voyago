@@ -44,20 +44,8 @@ async function fetchAndRenderBookings(token) {
     if (!tbody) return;
 
     try {
-        const response = await fetch(`${API_BASE_URL}/bookings`, {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-
-        if (!response.ok) {
-            if(response.status === 401) {
-                localStorage.removeItem('userInfo');
-                window.location.href = 'login.html';
-                return;
-            }
-            throw new Error('Failed to fetch bookings');
-        }
-
-        const bookings = await response.json();
+        // Load bookings from localStorage
+        const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
         
         if (bookingsStat) bookingsStat.textContent = bookings.length;
 
@@ -110,19 +98,14 @@ window.deleteBooking = async function(id) {
     if (!userInfo) return;
 
     try {
-        const response = await fetch(`${API_BASE_URL}/bookings/${id}`, {
-            method: 'DELETE',
-            headers: { 'Authorization': `Bearer ${userInfo.token}` }
-        });
-
-        if (response.ok) {
-            showToast('Booking deleted successfully');
-            fetchAndRenderBookings(userInfo.token);
-        } else {
-            const data = await response.json();
-            showToast(data.message || 'Error deleting booking', 'error');
-        }
+        // Remove from localStorage
+        const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+        const updatedBookings = bookings.filter(b => b.id != id);
+        localStorage.setItem('bookings', JSON.stringify(updatedBookings));
+        
+        showToast('Booking deleted successfully');
+        fetchAndRenderBookings(userInfo.token);
     } catch (error) {
-        showToast('Network error', 'error');
+        showToast('Error deleting booking', 'error');
     }
 };

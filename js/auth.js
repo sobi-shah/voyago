@@ -34,20 +34,17 @@ const updateNavbar = () => {
 // Register
 const register = async (name, email, password) => {
     try {
-        const response = await fetch(`${API_URL}/auth/register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, password })
-        });
+        // Mock registration
+        const data = {
+            _id: Date.now(),
+            name,
+            email,
+            role: 'user',
+            token: 'mock-jwt-token-' + Date.now()
+        };
         
-        const data = await response.json();
-        
-        if (response.ok) {
-            localStorage.setItem('userInfo', JSON.stringify(data));
-            window.location.href = 'index.html';
-        } else {
-            showError(data.message || 'Registration failed');
-        }
+        localStorage.setItem('userInfo', JSON.stringify(data));
+        window.location.href = 'index.html';
     } catch (error) {
         showError('Network error. Please try again.');
     }
@@ -56,20 +53,28 @@ const register = async (name, email, password) => {
 // Login
 const login = async (email, password) => {
     try {
-        const response = await fetch(`${API_URL}/auth/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-        
-        const data = await response.json();
-        
-        if (response.ok) {
-            localStorage.setItem('userInfo', JSON.stringify(data));
-            window.location.href = data.role === 'admin' ? 'admin.html' : 'index.html';
+        // Mock login
+        let data;
+        if (email === 'admin@voyago.com' && password === 'admin') {
+            data = {
+                _id: 1,
+                name: 'Admin',
+                email,
+                role: 'admin',
+                token: 'mock-admin-token'
+            };
         } else {
-            showError(data.message || 'Invalid credentials');
+            data = {
+                _id: Date.now(),
+                name: 'User',
+                email,
+                role: 'user',
+                token: 'mock-user-token-' + Date.now()
+            };
         }
+        
+        localStorage.setItem('userInfo', JSON.stringify(data));
+        window.location.href = data.role === 'admin' ? 'admin.html' : 'index.html';
     } catch (error) {
         showError('Network error. Please try again.');
     }

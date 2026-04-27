@@ -53,7 +53,7 @@ const showToast = (message, type = 'success') => {
 // Fetch API Wrapper
 const fetchPackages = async () => {
     try {
-        const response = await fetch(`${API_BASE}/packages`);
+        const response = await fetch('data/packages.json');
         if (!response.ok) throw new Error('Failed to fetch');
         return await response.json();
     } catch (error) {
@@ -177,9 +177,9 @@ async function initPackageDetailsPage() {
     }
 
     try {
-        const response = await fetch(`${API_BASE}/packages/${id}`);
-        if (!response.ok) throw new Error('Not found');
-        const pkg = await response.json();
+        const packages = await fetchPackages();
+        const pkg = packages.find(p => p.id == id);
+        if (!pkg) throw new Error('Not found');
         
         // Hide loading
         document.getElementById('loading-state').classList.add('hidden');
@@ -274,26 +274,27 @@ async function initBookingPage() {
             btn.innerHTML = '<svg class="animate-spin h-5 w-5 mr-3 inline" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Processing...';
             btn.disabled = true;
 
-            const response = await fetch(`${API_BASE}/bookings`, {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${userInfo.token}`
-                },
-                body: JSON.stringify(bookingData)
-            });
-
-            if (response.ok) {
-                const successMsg = document.getElementById('success-message');
-                successMsg.classList.remove('hidden');
-                form.reset();
-                showToast('Booking Confirmed!', 'success');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                setTimeout(() => successMsg.classList.add('hidden'), 5000);
-            } else {
-                const err = await response.json();
-                showToast(err.message || 'Booking failed', 'error');
-            }
+            // Simulate booking creation
+            const booking = {
+                ...bookingData,
+                id: Date.now(),
+                status: 'confirmed',
+                createdAt: new Date().toISOString()
+            };
+            
+            // Store in localStorage
+            const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            bookings.push(booking);
+            localStorage.setItem('bookings', JSON.stringify(bookings));
+            
+            // Simulate success
+            const success = true;
+            const successMsg = document.getElementById('success-message');
+            successMsg.classList.remove('hidden');
+            form.reset();
+            showToast('Booking Confirmed!', 'success');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => successMsg.classList.add('hidden'), 5000);
             
             btn.innerHTML = originalText;
             btn.disabled = false;
