@@ -53,9 +53,11 @@ const showToast = (message, type = 'success') => {
 // Fetch API Wrapper
 const fetchPackages = async () => {
     try {
-        const response = await fetch('data/packages.json');
+        const response = await fetch('/api/packages');
         if (!response.ok) throw new Error('Failed to fetch');
-        return await response.json();
+        const data = await response.json();
+        // Map _id to id so the frontend code continues working
+        return data.map(pkg => ({...pkg, id: pkg._id || pkg.id}));
     } catch (error) {
         console.error(error);
         return []; // Fallback to empty if backend is down

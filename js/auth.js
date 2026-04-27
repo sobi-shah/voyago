@@ -55,11 +55,14 @@ const login = async (email, password) => {
     try {
         // Mock login
         let data;
-        if (email === 'admin@voyago.com' && password === 'admin') {
+        const adminEmail = 'admin@voyago.com';
+        const adminPassword = 'amin123';
+
+        if ((email === adminEmail || email === 'admin') && password === adminPassword) {
             data = {
                 _id: 1,
                 name: 'Admin',
-                email,
+                email: adminEmail,
                 role: 'admin',
                 token: 'mock-admin-token'
             };
