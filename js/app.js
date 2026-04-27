@@ -85,7 +85,7 @@ const createPackageCard = (pkg) => {
         <div class="p-6 flex flex-col flex-grow">
             <h3 class="text-xl font-bold text-primary mb-2 font-display">${pkg.name}</h3>
             <p class="text-gray-500 text-sm mb-6 flex-grow line-clamp-3">${pkg.description}</p>
-            <a href="package-details.html?id=${pkg._id}" class="w-full inline-block text-center bg-gradient-to-r from-secondary to-accent hover:from-blue-400 hover:to-orange-500 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-0.5 hover:scale-105">View Details</a>
+            <a href="package-details.html?id=${pkg.id}" class="w-full inline-block text-center bg-gradient-to-r from-secondary to-accent hover:from-blue-400 hover:to-orange-500 text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-cyan-500/30 transition-all transform hover:-translate-y-0.5 hover:scale-105">View Details</a>
         </div>
     `;
     return card;
@@ -191,7 +191,7 @@ async function initPackageDetailsPage() {
         document.getElementById('pkg-desc').textContent = pkg.description;
         document.getElementById('pkg-price').textContent = formatCurrency(pkg.price);
         document.getElementById('pkg-duration').textContent = pkg.duration || 'N/A';
-        document.getElementById('btn-book-now').href = `booking.html?pkg=${pkg._id}`;
+        document.getElementById('btn-book-now').href = `booking.html?pkg=${pkg.id}`;
         
         // Image
         const imgEl = document.getElementById('pkg-image');
@@ -240,7 +240,7 @@ async function initBookingPage() {
     const packages = await fetchPackages();
     packages.forEach(pkg => {
         const option = document.createElement('option');
-        option.value = pkg._id; // Use real Mongo ID
+        option.value = pkg.id;
         option.textContent = `${pkg.name} - ${formatCurrency(pkg.price)}`;
         select.appendChild(option);
     });

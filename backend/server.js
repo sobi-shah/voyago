@@ -22,13 +22,12 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/packages', require('./routes/packageRoutes'));
 app.use('/api/bookings', require('./routes/bookingRoutes'));
 
-// Serve static frontend in production or if requested
-// Serve the frontend directory
-app.use(express.static(path.join(__dirname, '../frontend')));
+// Serve static frontend files from the project root
+app.use(express.static(path.join(__dirname, '../')));
 
-// Any route that doesn't match API will be sent to the frontend index.html
+// Any route that doesn't match API will be sent to the root index.html
 app.use((req, res) => {
-    res.sendFile(path.resolve(__dirname, '../frontend', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '../', 'index.html'));
 });
 
 const PORT = process.env.PORT || 5000;
