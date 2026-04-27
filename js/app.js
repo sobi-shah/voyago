@@ -68,8 +68,8 @@ const createPackageCard = (pkg) => {
     card.className = 'bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 card-hover flex flex-col h-full group';
     card.setAttribute('data-aos', 'fade-up');
     
-    // Fix image url if it's a local mock, or use unsplash fallback
-    const imgSrc = pkg.image.startsWith('http') ? pkg.image : `https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop`;
+    // Use package image if available, otherwise fallback to Unsplash
+    const imgSrc = pkg.image ? pkg.image : `https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop`;
     
     card.innerHTML = `
         <div class="relative h-60 overflow-hidden">
@@ -195,7 +195,7 @@ async function initPackageDetailsPage() {
         
         // Image
         const imgEl = document.getElementById('pkg-image');
-        imgEl.src = pkg.image.startsWith('http') ? pkg.image : 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=1200&auto=format&fit=crop';
+        imgEl.src = pkg.image ? pkg.image : 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=1200&auto=format&fit=crop';
         
         // Includes list
         const includesList = document.getElementById('pkg-includes');
