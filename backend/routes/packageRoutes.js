@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Package = require('../models/Package');
+const connectDB = require('../config/db');
 const { protect, admin } = require('../middleware/authMiddleware');
 
 const fallbackPackages = [
@@ -61,6 +62,7 @@ const fallbackPackages = [
 // @access  Public
 router.get('/', async (req, res) => {
     try {
+        await connectDB();
         let packages = await Package.find({});
         
         // Seed DB with fallbackPackages if empty
