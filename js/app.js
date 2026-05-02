@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     const path = window.location.pathname;
     
-    if (path.includes('packages.html')) {
-        initPackagesPage();
-    } else if (path.includes('package-details.html')) {
+    if (path.includes('package-details')) {
         initPackageDetailsPage();
-    } else if (path.includes('booking.html')) {
+    } else if (path.includes('packages')) {
+        initPackagesPage();
+    } else if (path.includes('booking')) {
         initBookingPage();
-    } else if (path.includes('admin.html') || path.includes('login.html') || path.includes('register.html')) {
+    } else if (path.includes('admin') || path.includes('login') || path.includes('register')) {
         // Handled by specific scripts
     } else {
         initHomePage();
