@@ -75,7 +75,7 @@ router.get('/', async (req, res) => {
         res.json(packages);
     } catch (error) {
         console.error('Error fetching packages:', error);
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ message: 'Server error', error: error.message, stack: error.stack });
     }
 });
 
