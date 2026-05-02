@@ -24,12 +24,13 @@ const showToast = (message, type = 'success') => {
 async function initAdminDashboard() {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     
-    if (!userInfo || userInfo.role !== 'admin') {
-        window.location.href = 'index.html';
-        return;
-    }
+    // TEMPORARY: Bypassing auth check for screenshot purposes
+    // if (!userInfo || userInfo.role !== 'admin') {
+    //     window.location.href = 'index.html';
+    //     return;
+    // }
 
-    await fetchAndRenderBookings(userInfo.token);
+    await fetchAndRenderBookings(userInfo ? userInfo.token : 'dummy-token');
     // In a real app we'd fetch actual users and revenue, but let's mock stats for now
     document.getElementById('stat-users').textContent = '248';
     document.getElementById('stat-revenue').textContent = 'Rs 12,450';
