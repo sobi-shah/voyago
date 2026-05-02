@@ -32,7 +32,7 @@ async function initAdminDashboard() {
     await fetchAndRenderBookings(userInfo.token);
     // In a real app we'd fetch actual users and revenue, but let's mock stats for now
     document.getElementById('stat-users').textContent = '248';
-    document.getElementById('stat-revenue').textContent = '$12,450';
+    document.getElementById('stat-revenue').textContent = 'Rs 12,450';
 }
 
 async function fetchAndRenderBookings(token) {

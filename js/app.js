@@ -18,7 +18,7 @@ const API_BASE = '/api';
 
 // Utilities
 const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+    return new Intl.NumberFormat('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 }).format(amount);
 };
 
 const showToast = (message, type = 'success') => {
@@ -155,9 +155,9 @@ async function initPackagesPage() {
         
         // Price filter
         const price = priceFilter ? priceFilter.value : '';
-        if (price === 'under1000') filtered = filtered.filter(p => p.price < 1000);
-        else if (price === '1000to2000') filtered = filtered.filter(p => p.price >= 1000 && p.price <= 2000);
-        else if (price === 'over2000') filtered = filtered.filter(p => p.price > 2000);
+        if (price === 'under300k') filtered = filtered.filter(p => p.price < 300000);
+        else if (price === '300kto600k') filtered = filtered.filter(p => p.price >= 300000 && p.price <= 600000);
+        else if (price === 'over600k') filtered = filtered.filter(p => p.price > 600000);
         
         render(filtered);
     };
