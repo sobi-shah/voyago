@@ -22,6 +22,14 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/packages', require('./routes/packageRoutes'));
 app.use('/api/bookings', require('./routes/bookingRoutes'));
 
+// DEBUG ROUTE
+app.get('/api/debug', (req, res) => {
+    res.json({
+        hasMongoUri: !!process.env.MONGO_URI,
+        nodeEnv: process.env.NODE_ENV
+    });
+});
+
 // Serve static frontend files from the project root
 app.use(express.static(path.join(__dirname, '../')));
 
