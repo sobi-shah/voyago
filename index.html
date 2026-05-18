@@ -73,7 +73,7 @@
     </script>
 </head>
 
-<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+<body class="bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-700 text-gray-800 flex flex-col min-h-screen transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
     <!-- Navigation -->
     <nav class="glass-nav sticky top-0 z-[9999] shadow-lg transition-all duration-300 relative pointer-events-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -100,7 +100,7 @@
                             <option value="EUR" class="text-black">EUR</option>
                             <option value="GBP" class="text-black">GBP</option>
                         </select>
-                        <button id="theme-toggle" class="text-gray-300 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors">
+                        <button id="theme-toggle" class="text-gray-300 hover:text-white p-2 rounded-full hover:bg-white dark:bg-gray-800/10 transition-colors">
                             <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
                             <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
                         </button>
@@ -127,7 +127,7 @@
                 </p>
                 
                 <!-- Hero Search Bar -->
-                <form id="hero-search-form" class="bg-white/10 backdrop-blur-md p-3 rounded-full flex flex-col md:flex-row items-center max-w-3xl mx-auto mb-10 shadow-2xl border border-white/20" onsubmit="event.preventDefault(); window.location.href='packages.html?search=' + document.getElementById('hero-search').value">
+                <form id="hero-search-form" class="bg-white dark:bg-gray-800/10 backdrop-blur-md p-3 rounded-full flex flex-col md:flex-row items-center max-w-3xl mx-auto mb-10 shadow-2xl border border-white/20" onsubmit="event.preventDefault(); window.location.href='packages.html?search=' + document.getElementById('hero-search').value">
                     <div class="flex-grow flex items-center w-full px-4 py-2">
                         <svg class="text-gray-300 w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         <input type="text" id="hero-search" placeholder="Where do you want to go?" class="bg-transparent border-none outline-none text-white placeholder-gray-300 w-full text-lg">
@@ -138,7 +138,7 @@
                 </form>
 
                 <div class="flex justify-center gap-4">
-                    <a href="packages.html" class="bg-white text-primary px-8 py-4 rounded-full font-bold text-lg transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2">
+                    <a href="packages.html" class="bg-white dark:bg-gray-800 text-primary px-8 py-4 rounded-full font-bold text-lg transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2">
                         Book Your Dream Trip Now &rarr;
                     </a>
                 </div>
@@ -153,25 +153,25 @@
     </header>
 
     <!-- Features Overview -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-16 bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center" data-aos="fade-up" data-aos-delay="200">
-                <div class="p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                     <div class="w-14 h-14 mx-auto bg-blue-50 text-secondary rounded-full flex items-center justify-center mb-4">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
                     </div>
                     <h3 class="text-xl font-bold text-primary mb-2">Worldwide Coverage</h3>
                     <p class="text-gray-500">Over 150 premium destinations across the globe waiting for you.</p>
                 </div>
-                <div class="p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                     <div class="w-14 h-14 mx-auto bg-orange-50 text-accent rounded-full flex items-center justify-center mb-4">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     </div>
                     <h3 class="text-xl font-bold text-primary mb-2">Safe & Secure</h3>
                     <p class="text-gray-500">Your safety is our priority. All packages include comprehensive travel insurance.</p>
                 </div>
-                <div class="p-6 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 mx-auto bg-gray-50 text-primary rounded-full flex items-center justify-center mb-4">
+                <div class="p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 mx-auto bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-700 text-primary rounded-full flex items-center justify-center mb-4">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     </div>
                     <h3 class="text-xl font-bold text-primary mb-2">Premium Service</h3>
@@ -182,7 +182,7 @@
     </section>
 
     <!-- Featured Section -->
-    <section class="py-20 flex-grow bg-white">
+    <section class="py-20 flex-grow bg-white dark:bg-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12" data-aos="fade-right">
                 <div class="max-w-2xl">
@@ -203,7 +203,7 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="py-20 bg-gray-50 border-t border-gray-100">
+    <section class="py-20 bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-700 border-t border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
                 <span class="text-accent font-bold uppercase tracking-wider text-sm">Real Experiences</span>
@@ -213,7 +213,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Testimonial 1 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow" data-aos="fade-up" data-aos-delay="100">
                     <div class="flex items-center gap-2 text-accent mb-4">
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -232,7 +232,7 @@
                 </div>
 
                 <!-- Testimonial 2 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow" data-aos="fade-up" data-aos-delay="200">
                     <div class="flex items-center gap-2 text-accent mb-4">
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
@@ -251,7 +251,7 @@
                 </div>
 
                 <!-- Testimonial 3 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow" data-aos="fade-up" data-aos-delay="300">
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow" data-aos="fade-up" data-aos-delay="300">
                     <div class="flex items-center gap-2 text-accent mb-4">
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
