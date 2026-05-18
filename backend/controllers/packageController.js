@@ -1,6 +1,7 @@
 const Package = require('../models/Package');
 const asyncHandler = require('../middleware/asyncHandler');
 const { z } = require('zod');
+const connectDB = require('../config/db');
 
 // Schema for package creation/update
 const packageSchema = z.object({
@@ -17,45 +18,57 @@ const packageSchema = z.object({
 // @route   GET /api/packages
 // @access  Public
 const getPackages = asyncHandler(async (req, res) => {
-    // Search and Filter Logic
-    const { search, minPrice, maxPrice, location } = req.query;
-    
-    let query = {};
-    
-    // Search by name or description
-    if (search) {
-        query.$or = [
-            { name: { $regex: search, $options: 'i' } },
-            { description: { $regex: search, $options: 'i' } }
-        ];
-    }
-    
-    // Filter by location
-    if (location) {
-        query.location = { $regex: location, $options: 'i' };
-    }
-    
-    // Filter by price
-    if (minPrice || maxPrice) {
-        query.price = {};
-        if (minPrice) query.price.$gte = Number(minPrice);
-        if (maxPrice) query.price.$lte = Number(maxPrice);
-    }
+    try {
+        await connectDB();
+        
+        // Search and Filter Logic
+        const { search, minPrice, maxPrice, location } = req.query;
+        
+        let query = {};
+        
+        // Search by name or description
+        if (search) {
+            query.$or = [
+                { name: { $regex: search, $options: 'i' } },
+                { description: { $regex: search, $options: 'i' } }
+            ];
+        }
+        
+        // Filter by location
+        if (location) {
+            query.location = { $regex: location, $options: 'i' };
+        }
+        
+        // Filter by price
+        if (minPrice || maxPrice) {
+            query.price = {};
+            if (minPrice) query.price.$gte = Number(minPrice);
+            if (maxPrice) query.price.$lte = Number(maxPrice);
+        }
 
-    const packages = await Package.find(query);
-    res.json(packages);
+        const packages = await Package.find(query);
+        res.json(packages);
+    } catch (error) {
+        console.error("Database fetch failed:", error);
+        res.status(500).json({ message: "Database connection failed", error: error.message });
+    }
 });
 
 // @desc    Get single package
 // @route   GET /api/packages/:id
 // @access  Public
 const getPackageById = asyncHandler(async (req, res) => {
-    const pkg = await Package.findById(req.params.id);
-    if (pkg) {
-        res.json(pkg);
-    } else {
-        res.status(404);
-        throw new Error('Package not found');
+    try {
+        await connectDB();
+        const pkg = await Package.findById(req.params.id);
+        if (pkg) {
+            res.json(pkg);
+        } else {
+            res.status(404).json({ message: 'Package not found' });
+        }
+    } catch (error) {
+        console.error("Database fetch failed:", error);
+        res.status(500).json({ message: "Database connection failed", error: error.message });
     }
 });
 

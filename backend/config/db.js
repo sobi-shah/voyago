@@ -11,8 +11,12 @@ const connectDB = async () => {
         return cached.conn;
     }
 
+    if (!process.env.MONGODB_URI) {
+        throw new Error('MONGODB_URI environment variable is missing');
+    }
+
     if (!cached.promise) {
-        cached.promise = mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/voyago', {
+        cached.promise = mongoose.connect(process.env.MONGODB_URI, {
             serverSelectionTimeoutMS: 5000,
             socketTimeoutMS: 45000,
         }).then((mongoose) => {
