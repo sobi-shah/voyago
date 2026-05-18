@@ -39,7 +39,7 @@
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
     <!-- Navigation -->
-    <nav class="glass-nav sticky top-0 z-50 shadow-lg">
+    <nav class="glass-nav sticky top-0 z-[9999] shadow-lg relative pointer-events-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <a href="index.html" class="flex items-center gap-2 text-white group">
@@ -48,11 +48,11 @@
                     </svg>
                     <span class="font-extrabold text-2xl tracking-tight font-display bg-clip-text text-transparent bg-gradient-to-r from-[#38BDF8] via-[#0EA5E9] to-[#F97316]">Voyago</span>
                 </a>
-                <div class="hidden md:flex items-center space-x-8">
+                <div class="hidden md:flex items-center space-x-8 relative z-[9999] pointer-events-auto">
                     <a href="index.html" class="text-gray-300 hover:text-white transition-colors font-medium">Home</a>
                     <a href="packages.html" class="text-secondary font-semibold">Packages</a>
                     <a href="booking.html" class="text-gray-300 hover:text-white transition-colors font-medium">Booking</a>
-                    <div id="nav-auth-section" class="flex items-center gap-4">
+                    <div id="nav-auth-section" class="flex items-center gap-4 relative z-[9999] pointer-events-auto">
                         <a href="login.html" class="text-gray-300 hover:text-white font-medium transition-colors">Login</a>
                         <a href="register.html" class="bg-gradient-to-r from-secondary to-accent text-white px-6 py-2.5 rounded-full font-medium transition-all shadow-lg hover:shadow-cyan-500/30 transform hover:-translate-y-0.5 hover:scale-105">Sign Up</a>
                     </div>
@@ -181,7 +181,8 @@
     <script>
         AOS.init({ once: true, offset: 50 });
     </script>
-    <script src="js/auth.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/auth.js?v=2"></script>
+    <script src="js/app.js?v=2"></script>
+    <script src="js/chat-widget.js"></script>
 </body>
 </html>

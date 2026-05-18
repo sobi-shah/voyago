@@ -15,11 +15,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         primary: '#0F172A',
-                        secondary: '#38BDF8',
+                        secondary: '#3B82F6',
                         accent: '#F97316'
                     },
                     fontFamily: {
@@ -56,22 +57,23 @@
 
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
     <!-- Navigation -->
-    <nav class="glass-nav sticky top-0 z-50 shadow-lg">
+    <nav class="glass-nav sticky top-0 z-[9999] shadow-lg relative pointer-events-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <a href="index.html" class="flex items-center gap-2 text-white group">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-secondary transform group-hover:-translate-y-1 transition-transform">
                         <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.2-1.1.5l-1.5 1.5c-.2.2-.2.6 0 .8L8 13l-3.5 3.5-2.2-.7c-.3-.1-.7 0-.9.2L.4 17c-.2.2-.2.6 0 .8L4 20l2.2 3.6c.2.2.6.2.8 0l1-1c.2-.2.3-.6.2-.9l-.7-2.2L11 16l4 5.8c.2.3.6.4.8.2l1.5-1.5c.3-.2.6-.6.5-1.1z"/>
                     </svg>
-                    <span class="font-extrabold text-2xl tracking-tight font-display bg-clip-text text-transparent bg-gradient-to-r from-[#38BDF8] via-[#0EA5E9] to-[#F97316]">Voyago</span>
+                    <span class="font-extrabold text-2xl tracking-tight font-display bg-clip-text text-transparent bg-gradient-to-r from-secondary to-accent">Voyago</span>
                 </a>
-                <div class="hidden md:flex items-center space-x-8">
+                <div class="hidden md:flex items-center space-x-8 relative z-[9999] pointer-events-auto">
                     <a href="index.html" class="text-gray-300 hover:text-white transition-colors font-medium">Home</a>
                     <a href="packages.html" class="text-secondary font-semibold">Packages</a>
                     <a href="booking.html" class="text-gray-300 hover:text-white transition-colors font-medium">Booking</a>
-                    <div id="nav-auth-section" class="flex items-center gap-4">
+
+                    <div id="nav-auth-section" class="flex items-center gap-4 relative z-[9999] pointer-events-auto">
                         <a href="login.html" class="text-gray-300 hover:text-white font-medium transition-colors">Login</a>
-                        <a href="register.html" class="bg-gradient-to-r from-secondary to-accent text-white px-6 py-2.5 rounded-full font-medium transition-all shadow-lg hover:shadow-cyan-500/30 transform hover:-translate-y-0.5 hover:scale-105">Sign Up</a>
+                        <a href="register.html" class="bg-gradient-to-r from-secondary to-blue-700 text-white px-6 py-2.5 rounded-full font-medium transition-all shadow-lg hover:shadow-blue-500/30 transform hover:-translate-y-0.5 hover:scale-105">Sign Up</a>
                     </div>
                 </div>
             </div>
@@ -81,7 +83,7 @@
     <!-- Page Header -->
     <header class="header-bg py-24 text-center">
         <div class="max-w-4xl mx-auto px-4" data-aos="fade-down" data-aos-duration="800">
-            <h1 class="text-4xl md:text-6xl font-display font-extrabold text-white mb-4 drop-shadow-md">Our Travel <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#38BDF8] via-[#0EA5E9] to-[#F97316]">Packages</span></h1>
+            <h1 class="text-4xl md:text-6xl font-display font-extrabold text-white mb-4 drop-shadow-md">Our Travel <span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-accent">Packages</span></h1>
             <p class="text-xl text-gray-200 font-light drop-shadow">Find the perfect getaway from our curated premium collection.</p>
         </div>
     </header>
@@ -90,22 +92,38 @@
     <section class="py-8 bg-white border-b border-gray-100 sticky top-20 z-40 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-                <div class="relative w-full md:w-1/2" data-aos="fade-right">
+                <div class="relative w-full md:w-2/5" data-aos="fade-right">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
-                    <input type="text" id="search-pkg" class="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-lg leading-5 bg-gray-50 placeholder-gray-500 focus:outline-none focus:bg-white focus:ring-2 focus:ring-secondary focus:border-secondary transition-all" placeholder="Search destinations (e.g., 'Bali', 'Swiss')...">
+                    <input type="text" id="search-pkg" class="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-lg leading-5 bg-gray-50 placeholder-gray-500 focus:outline-none focus:bg-white focus:ring-2 focus:ring-secondary focus:border-secondary transition-all" placeholder="Search destinations (e.g., 'Dubai', 'Paris')...">
                 </div>
                 
-                <div class="flex gap-4 w-full md:w-auto" data-aos="fade-left">
-                    <select id="filter-price" class="block w-full py-3 px-4 border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-secondary focus:bg-white transition-all text-gray-700">
-                        <option value="">Any Price</option>
-                        <option value="under300k">Under Rs 300,000</option>
-                        <option value="300kto600k">Rs 300,000 - Rs 600,000</option>
-                        <option value="over600k">Over Rs 600,000</option>
+                <div class="flex flex-col md:flex-row gap-4 w-full md:w-auto flex-grow justify-end" data-aos="fade-left">
+                    <select id="filter-location" class="block w-full md:w-48 py-3 px-4 border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-secondary focus:bg-white transition-all text-gray-700">
+                        <option value="">Any Location</option>
+                        <option value="Dubai">Dubai</option>
+                        <option value="Turkey">Turkey</option>
+                        <option value="Pakistan">Pakistan</option>
+                        <option value="France">France</option>
+                        <option value="Switzerland">Switzerland</option>
+                        <option value="Maldives">Maldives</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Greece">Greece</option>
                     </select>
+
+                    <select id="filter-price" class="block w-full md:w-48 py-3 px-4 border border-gray-200 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-secondary focus:bg-white transition-all text-gray-700">
+                        <option value="">Any Price</option>
+                        <option value="0-1000">Under $1000</option>
+                        <option value="1000-2000">$1000 - $2000</option>
+                        <option value="2000-5000">Over $2000</option>
+                    </select>
+
+                    <button id="apply-filters" class="bg-secondary text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-600 transition-colors shadow-sm">
+                        Filter
+                    </button>
                 </div>
             </div>
         </div>
@@ -128,7 +146,7 @@
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-secondary transform group-hover:-translate-y-1 transition-transform">
                         <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.2-1.1.5l-1.5 1.5c-.2.2-.2.6 0 .8L8 13l-3.5 3.5-2.2-.7c-.3-.1-.7 0-.9.2L.4 17c-.2.2-.2.6 0 .8L4 20l2.2 3.6c.2.2.6.2.8 0l1-1c.2-.2.3-.6.2-.9l-.7-2.2L11 16l4 5.8c.2.3.6.4.8.2l1.5-1.5c.3-.2.6-.6.5-1.1z"/>
                     </svg>
-                    <span class="font-extrabold text-xl tracking-tight font-display bg-clip-text text-transparent bg-gradient-to-r from-[#38BDF8] via-[#0EA5E9] to-[#F97316]">Voyago</span>
+                    <span class="font-extrabold text-xl tracking-tight font-display bg-clip-text text-transparent bg-gradient-to-r from-secondary to-accent">Voyago</span>
                 </a>
                 <p>&copy; 2026 Voyago. All rights reserved.</p>
             </div>
@@ -140,8 +158,9 @@
     <script>
         AOS.init({ once: true, offset: 50 });
     </script>
-    <script src="js/auth.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/auth.js?v=2"></script>
+    <script src="js/app.js?v=2"></script>
+    <script src="js/chat-widget.js"></script>
 </body>
 
 </html>

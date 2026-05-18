@@ -15,12 +15,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         primary: '#0F172A',
-                        secondary: '#38BDF8',
-                        accent: '#F97316'
+                        secondary: '#3B82F6', // Updated to requested blue
+                        accent: '#F97316'    // Requested orange
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -38,11 +39,11 @@
         /* Custom tweaks not handled by Tailwind */
         body { font-family: 'Inter', sans-serif; }
         .glass-nav {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(12px);
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(16px);
         }
         .hero-bg {
-            background: linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.4)), 
+            background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.6)), 
                         url('https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=2021&auto=format&fit=crop') center/cover no-repeat;
         }
         .card-hover {
@@ -59,7 +60,7 @@
             text-align: center;
             width: 100%;
             padding: 4rem;
-            color: #38BDF8;
+            color: #3B82F6;
             font-weight: 600;
             animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
@@ -70,9 +71,9 @@
     </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen transition-colors duration-300">
     <!-- Navigation -->
-    <nav class="glass-nav sticky top-0 z-50 shadow-lg transition-all duration-300">
+    <nav class="glass-nav sticky top-0 z-[9999] shadow-lg transition-all duration-300 relative pointer-events-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
@@ -80,18 +81,19 @@
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-secondary transform group-hover:-translate-y-1 transition-transform">
                         <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.2-1.1.5l-1.5 1.5c-.2.2-.2.6 0 .8L8 13l-3.5 3.5-2.2-.7c-.3-.1-.7 0-.9.2L.4 17c-.2.2-.2.6 0 .8L4 20l2.2 3.6c.2.2.6.2.8 0l1-1c.2-.2.3-.6.2-.9l-.7-2.2L11 16l4 5.8c.2.3.6.4.8.2l1.5-1.5c.3-.2.6-.6.5-1.1z"/>
                     </svg>
-                    <span class="font-extrabold text-2xl tracking-tight font-display bg-clip-text text-transparent bg-gradient-to-r from-[#38BDF8] via-[#0EA5E9] to-[#F97316]">Voyago</span>
+                    <span class="font-extrabold text-2xl tracking-tight font-display bg-clip-text text-transparent bg-gradient-to-r from-secondary to-accent">Voyago</span>
                 </a>
                 
                 <!-- Links -->
-                <div class="hidden md:flex items-center space-x-8">
+                <div class="hidden md:flex items-center space-x-8 relative z-[9999] pointer-events-auto">
                     <a href="index.html" class="text-secondary font-semibold">Home</a>
                     <a href="packages.html" class="text-gray-300 hover:text-white transition-colors font-medium">Packages</a>
                     <a href="booking.html" class="text-gray-300 hover:text-white transition-colors font-medium">Booking</a>
+
                     <!-- User Auth Section (Updated by JS) -->
-                    <div id="nav-auth-section" class="flex items-center gap-4">
+                    <div id="nav-auth-section" class="flex items-center gap-4 relative z-[9999] pointer-events-auto">
                         <a href="login.html" class="text-gray-300 hover:text-white font-medium transition-colors">Login</a>
-                        <a href="register.html" class="bg-gradient-to-r from-secondary to-accent text-white px-6 py-2.5 rounded-full font-medium transition-all shadow-lg hover:shadow-cyan-500/30 transform hover:-translate-y-0.5 hover:scale-105">Sign Up</a>
+                        <a href="register.html" class="bg-gradient-to-r from-secondary to-blue-700 text-white px-6 py-2.5 rounded-full font-medium transition-all shadow-lg hover:shadow-blue-500/30 transform hover:-translate-y-0.5 hover:scale-105">Sign Up</a>
                     </div>
                 </div>
             </div>
@@ -99,20 +101,31 @@
     </nav>
 
     <!-- Hero Banner -->
-    <header class="hero-bg h-[80vh] min-h-[600px] flex items-center relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10" data-aos="fade-up" data-aos-duration="1000">
-            <div class="max-w-3xl">
-                <span class="inline-block py-1 px-3 rounded-full bg-secondary/20 text-secondary font-semibold text-sm mb-4 border border-secondary/30 backdrop-blur-sm">Premium Travel Experience</span>
-                <h1 class="text-5xl md:text-7xl font-display font-extrabold text-white mb-6 leading-tight drop-shadow-lg">
-                    Explore the World with <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#38BDF8] via-[#0EA5E9] to-[#F97316]">Voyago</span> ✈️
+    <header class="hero-bg min-h-[85vh] flex items-center relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 py-20" data-aos="fade-up" data-aos-duration="1000">
+            <div class="max-w-4xl text-center mx-auto">
+                <span class="inline-block py-1.5 px-4 rounded-full bg-secondary/20 text-blue-300 font-semibold text-sm mb-6 border border-secondary/30 backdrop-blur-md shadow-lg" data-aos="fade-down" data-aos-delay="200">Premium Travel Experience</span>
+                <h1 class="text-5xl md:text-7xl font-display font-extrabold text-white mb-6 leading-tight drop-shadow-2xl">
+                    Explore the World with <span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-accent">Voyago</span> ✈️
                 </h1>
-                <p class="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl font-light drop-shadow">
+                <p class="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto font-light drop-shadow-md">
                     Your journey begins here — discover, book, and travel effortlessly.
                 </p>
-                <div class="flex flex-wrap gap-4">
-                    <a href="packages.html" class="bg-gradient-to-r from-secondary to-accent text-white px-8 py-4 rounded-full font-bold text-lg transition-all shadow-xl hover:shadow-cyan-500/40 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2">
-                        Start Your Journey
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                
+                <!-- Hero Search Bar -->
+                <form id="hero-search-form" class="bg-white/10 backdrop-blur-md p-3 rounded-full flex flex-col md:flex-row items-center max-w-3xl mx-auto mb-10 shadow-2xl border border-white/20" onsubmit="event.preventDefault(); window.location.href='packages.html?search=' + document.getElementById('hero-search').value">
+                    <div class="flex-grow flex items-center w-full px-4 py-2">
+                        <svg class="text-gray-300 w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        <input type="text" id="hero-search" placeholder="Where do you want to go?" class="bg-transparent border-none outline-none text-white placeholder-gray-300 w-full text-lg">
+                    </div>
+                    <button type="submit" class="w-full md:w-auto bg-gradient-to-r from-secondary to-blue-700 text-white px-8 py-3.5 rounded-full font-bold text-lg transition-all shadow-xl hover:shadow-blue-500/40 transform hover:scale-105 mt-2 md:mt-0">
+                        Search
+                    </button>
+                </form>
+
+                <div class="flex justify-center gap-4">
+                    <a href="packages.html" class="bg-white text-primary px-8 py-4 rounded-full font-bold text-lg transition-all shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 hover:scale-105 flex items-center gap-2">
+                        Book Your Dream Trip Now &rarr;
                     </a>
                 </div>
             </div>
@@ -175,6 +188,76 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-50 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-accent font-bold uppercase tracking-wider text-sm">Real Experiences</span>
+                <h2 class="text-4xl font-display font-extrabold text-primary mt-2">What Our Clients Say</h2>
+                <p class="text-gray-500 mt-4 text-lg max-w-2xl mx-auto">Don't just take our word for it. Hear from travelers who have explored the world with us.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center gap-2 text-accent mb-4">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">"Our trip to Dubai was flawless. From the Burj Al Arab stay to the desert safari, every detail was handled perfectly. Voyago truly delivers a premium experience!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-secondary font-bold text-lg">SA</div>
+                        <div>
+                            <h4 class="font-bold text-primary">Sarah Ahmed</h4>
+                            <p class="text-sm text-gray-500">Corporate Executive</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center gap-2 text-accent mb-4">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">"I've always wanted to visit the Hunza Valley, and Voyago made it happen without any hassle. The local guides were fantastic and the accommodations were top-notch."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-accent font-bold text-lg">MK</div>
+                        <div>
+                            <h4 class="font-bold text-primary">Michael Khan</h4>
+                            <p class="text-sm text-gray-500">Photographer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center gap-2 text-accent mb-4">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <p class="text-gray-600 mb-6 italic">"The booking process is incredibly smooth, and the customer support team is always there to help. Our honeymoon in the Maldives was a dream come true."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-primary font-bold text-lg">EJ</div>
+                        <div>
+                            <h4 class="font-bold text-primary">Emily & James</h4>
+                            <p class="text-sm text-gray-500">Newlyweds</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-primary text-gray-300 pt-16 pb-8 border-t border-gray-800 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -220,8 +303,9 @@
         });
     </script>
     <!-- App Logic -->
-    <script src="js/auth.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/auth.js?v=2"></script>
+    <script src="js/app.js?v=2"></script>
+    <script src="js/chat-widget.js?v=5"></script>
 </body>
 
 </html>

@@ -33,59 +33,86 @@ const updateNavbar = () => {
 
 // Register
 const register = async (name, email, password) => {
+    const btn = document.querySelector('#register-form button[type="submit"]');
+    const originalText = btn ? btn.textContent : 'Sign Up';
+    if (btn) { btn.disabled = true; btn.textContent = 'Please wait...'; btn.classList.add('opacity-70'); }
+    
     try {
-        // Mock registration
-        const data = {
-            _id: Date.now(),
-            name,
-            email,
-            role: 'user',
-            token: 'mock-jwt-token-' + Date.now()
-        };
+        const res = await fetch(`${API_URL}/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name, email, password })
+        });
         
-        localStorage.setItem('userInfo', JSON.stringify(data));
-        window.location.href = 'index.html';
+        const data = await res.json();
+        
+        if (res.ok) {
+            localStorage.setItem('userInfo', JSON.stringify(data));
+            localStorage.setItem('token', data.token);
+            window.location.href = 'index.html';
+        } else {
+            showError(data.message || 'Registration failed');
+        }
     } catch (error) {
         showError('Network error. Please try again.');
+        console.error(error);
+    } finally {
+        if (btn) { btn.disabled = false; btn.textContent = originalText; btn.classList.remove('opacity-70'); }
     }
 };
 
 // Login
 const login = async (email, password) => {
-    try {
-        // Mock login
-        let data;
-        const adminEmail = 'admin@voyago.com';
-        const adminPassword = 'amin123';
+    const btn = document.querySelector('#login-form button[type="submit"]');
+    const originalText = btn ? btn.textContent : 'Sign In';
+    if (btn) { btn.disabled = true; btn.textContent = 'Please wait...'; btn.classList.add('opacity-70'); }
 
-        if ((email === adminEmail || email === 'admin') && password === adminPassword) {
-            data = {
-                _id: 1,
-                name: 'Admin',
-                email: adminEmail,
-                role: 'admin',
-                token: 'mock-admin-token'
-            };
-        } else {
-            data = {
-                _id: Date.now(),
-                name: 'User',
-                email,
-                role: 'user',
-                token: 'mock-user-token-' + Date.now()
-            };
-        }
+    try {
+        const res = await fetch(`${API_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
         
-        localStorage.setItem('userInfo', JSON.stringify(data));
-        window.location.href = data.role === 'admin' ? 'admin.html' : 'index.html';
+        const data = await res.json();
+        
+        if (res.ok) {
+            localStorage.setItem('userInfo', JSON.stringify(data));
+            localStorage.setItem('token', data.token); // Explicitly set token for app.js
+            
+            // Check where they came from
+            const urlParams = new URLSearchParams(window.location.search);
+            const redirect = urlParams.get('redirect');
+            
+            if (redirect) {
+                window.location.href = redirect;
+            } else {
+                window.location.href = data.role === 'admin' ? 'admin.html' : 'index.html';
+            }
+        } else {
+            showError(data.message || 'Invalid email or password');
+        }
     } catch (error) {
         showError('Network error. Please try again.');
+        console.error(error);
+    } finally {
+        if (btn) { btn.disabled = false; btn.textContent = originalText; btn.classList.remove('opacity-70'); }
     }
 };
 
 // Logout
-const logout = () => {
+const logout = async () => {
+    try {
+        await fetch(`${API_URL}/auth/logout`, { method: 'POST' });
+    } catch (e) {
+        console.error('Logout error', e);
+    }
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('token');
     window.location.href = 'index.html';
 };
 
@@ -96,6 +123,9 @@ const showError = (message) => {
         errorEl.textContent = message;
         errorEl.classList.remove('hidden');
         setTimeout(() => errorEl.classList.add('hidden'), 4000);
+    } else {
+        // Fallback if no error-msg element
+        alert(message);
     }
 };
 
