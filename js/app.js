@@ -312,6 +312,8 @@ async function initBookingPage() {
             people: parseInt(document.getElementById('people').value),
             date: document.getElementById('date').value,
             contactInfo: {
+                name: document.getElementById('fname').value,
+                email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 address: "Not provided" // Using fallback for now, since Zod requires it
             }

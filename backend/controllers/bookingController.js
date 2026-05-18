@@ -7,6 +7,8 @@ const bookingSchema = z.object({
     date: z.string().min(1, 'Date is required'),
     people: z.number().min(1, 'At least 1 person required').max(10, 'Maximum 10 people allowed'),
     contactInfo: z.object({
+        name: z.string().min(1, 'Name is required'),
+        email: z.string().email('Valid email is required'),
         phone: z.string().min(10, 'Valid phone number required'),
         address: z.string().optional()
     })
