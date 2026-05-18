@@ -6,14 +6,17 @@
     <title>Voyago | Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    
+
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         primary: '#0F172A',
-                        secondary: '#38BDF8',
-                        accent: '#F97316'
+                        secondary: '#0EA5E9',
+                        accent: '#F59E0B'
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -24,7 +27,7 @@
         }
     </script>
 </head>
-<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4">
+<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
     <div class="max-w-md w-full bg-white rounded-2xl shadow-xl overflow-hidden">
         <div class="bg-primary px-8 py-6 text-center">
             <a href="index.html" class="inline-flex items-center gap-2 text-white mb-2 group">

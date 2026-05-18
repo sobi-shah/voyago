@@ -12,13 +12,74 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         initHomePage();
     }
+    
+    initTheme();
+    initCurrency();
 });
 
 const API_BASE = '/api';
 
 // Utilities
+let currentCurrency = localStorage.getItem('currency') || 'PKR';
+const exchangeRates = { PKR: 1, USD: 0.0036, EUR: 0.0033, GBP: 0.0028 };
+const currencySymbols = { PKR: 'Rs ', USD: '$', EUR: '€', GBP: '£' };
+
 const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-PK', { style: 'currency', currency: 'PKR', minimumFractionDigits: 0 }).format(amount);
+    const converted = amount * exchangeRates[currentCurrency];
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: currentCurrency, minimumFractionDigits: 0 })
+        .format(converted).replace(currentCurrency, currencySymbols[currentCurrency]);
+};
+
+const initCurrency = () => {
+    const select = document.getElementById('currency-select');
+    if (!select) return;
+    
+    select.value = currentCurrency;
+    select.addEventListener('change', (e) => {
+        currentCurrency = e.target.value;
+        localStorage.setItem('currency', currentCurrency);
+        window.location.reload(); // Quick way to re-render all prices
+    });
+};
+
+const initTheme = () => {
+    const themeToggle = document.getElementById('theme-toggle');
+    if (!themeToggle) return;
+    
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+    const toggleIcons = (isDark) => {
+        if (isDark) {
+            darkIcon.classList.remove('hidden');
+            lightIcon.classList.add('hidden');
+        } else {
+            lightIcon.classList.remove('hidden');
+            darkIcon.classList.add('hidden');
+        }
+    };
+
+    const isDark = localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if (isDark) {
+        document.documentElement.classList.add('dark');
+        toggleIcons(true);
+    } else {
+        document.documentElement.classList.remove('dark');
+        toggleIcons(false);
+    }
+
+    themeToggle.addEventListener('click', () => {
+        const isDarkNow = document.documentElement.classList.contains('dark');
+        if (isDarkNow) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            toggleIcons(false);
+        } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            toggleIcons(true);
+        }
+    });
 };
 
 const showToast = (message, type = 'success') => {
@@ -195,6 +256,15 @@ async function initPackagesPage() {
 
         const packages = await fetchPackages(query);
         
+        const sortValue = document.getElementById('filter-sort') ? document.getElementById('filter-sort').value : '';
+        if (sortValue === 'price-asc') {
+            packages.sort((a, b) => a.price - b.price);
+        } else if (sortValue === 'price-desc') {
+            packages.sort((a, b) => b.price - a.price);
+        } else if (sortValue === 'duration') {
+            packages.sort((a, b) => parseInt(a.duration || '999') - parseInt(b.duration || '999'));
+        }
+
         container.innerHTML = '';
         if (packages.length === 0) {
             container.innerHTML = `
@@ -261,6 +331,33 @@ async function initPackageDetailsPage() {
         } else {
             includesList.innerHTML = '<li class="text-gray-500 italic">Standard inclusions apply.</li>';
         }
+
+        // Populate Interactive Itinerary (Mock Data based on duration)
+        const itineraryContainer = document.getElementById('pkg-itinerary');
+        if (itineraryContainer) {
+            const days = parseInt(pkg.duration) || 3;
+            let itineraryHTML = '';
+            for (let i = 1; i <= days; i++) {
+                itineraryHTML += `
+                    <details class="group bg-gray-50 rounded-lg border border-gray-100 open:bg-white open:ring-1 open:ring-secondary/20 transition-all">
+                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-gray-800 hover:text-secondary">
+                            <span class="flex items-center gap-2">
+                                <span class="bg-secondary/10 text-secondary w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">D${i}</span>
+                                Day ${i}: Exploring ${pkg.location || 'the area'}
+                            </span>
+                            <span class="transition group-open:rotate-180">
+                                <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="text-gray-600 mt-3 p-4 pt-0 border-t border-gray-100 leading-relaxed text-sm">
+                            <p>Enjoy a guided tour of the local attractions, savoring authentic cuisine and immersing yourself in the rich culture. Optional activities available in the afternoon.</p>
+                        </div>
+                    </details>
+                `;
+            }
+            itineraryContainer.innerHTML = itineraryHTML;
+        }
+
     } catch (error) {
         document.getElementById('loading-state').classList.add('hidden');
         document.getElementById('error-state').classList.remove('hidden');
